@@ -21,8 +21,16 @@ public class WordViewModel extends AndroidViewModel {
     LiveData<List<Word>> getAllWords() { return mAllWords; }
 
     public void insert(Word word) {
-        WordRoomDatabase.databaseWriteExecutor.execute(() -> {
+        mWordDao.insert(word); // <- Так нельзя!!!
+        /* WordRoomDatabase.databaseWriteExecutor.execute(() -> {
             mWordDao.insert(word);
-        });
+        }); */
+        /*new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mWordDao.insert(word);
+            }
+        }).start();*
+         */
     }
 }
